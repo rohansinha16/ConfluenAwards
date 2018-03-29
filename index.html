@@ -1,0 +1,31 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>Confluencenter Spending</title>
+	<meta name="description" content="Example Bubble chart implementation in JS. Based on NYT visualization">
+	<meta name="author" content="Jim Vallandingham">
+
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<link rel="stylesheet" href="css/reset.css">
+	<link rel="stylesheet" href="css/bubble_chart.css">
+	<link rel="stylesheet" href="css/legend.css">
+</head>
+<body bgcolor="#0c234b">
+	<div class="container">
+		<h1 style="color:white">Confluencenter Spending</h1>
+		<div id="toolbar">
+			<a href="#" id="all" class="button active">Total Spending</a>
+			<a href="#" id="college" class="button">Spending by College</a>
+			<a href="#" id="from" class="button">Funding From</a>
+		</div>
+		<div id="vis"></div>
+	</div>
+	<div class="footer" style="color:white">
+		<p><a href="http://confluencenter.arizona.edu" style="color:Gainsboro">Back to Confluencenter</a>
+	</div>
+	<script src="lib/d3.js"></script>
+	<script src="src/tooltip.js"></script>
+	<script src="src/bubble_chart.js"></script>
+</body>
+</html>
