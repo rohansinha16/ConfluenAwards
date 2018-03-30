@@ -48,6 +48,7 @@ a, a:visited, a:active {
 
 .tooltip {
 	position: absolute;
+  text-align: center;
 	top: 100px;
 	left: 100px;
   -moz-border-radius:5px;
@@ -56,9 +57,10 @@ a, a:visited, a:active {
   background: #fff;
 	opacity: .9;
   color: black;
-	padding: 10px;
-	width: 300px;
-	font-size: 12px;
+  padding: 5px;
+	padding-left: 20px;
+  padding-right: 20px;
+	font-size: 16px;
 	z-index: 10;
 }
 
@@ -68,6 +70,13 @@ a, a:visited, a:active {
 
 .tooltip .name {
   font-weight:bold;
+  color: #1e5288;
+}
+
+.tooltip .amount {
+  font-weight:bold;
+  font-size: 24px;
+  color: #ab0520;
 }
 
 .footer {

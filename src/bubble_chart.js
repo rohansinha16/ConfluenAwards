@@ -315,16 +315,16 @@ function bubbleChart() {
 	function showDetail(d) {
 		// change outline to indicate hover state.
 		d3.select(this).attr('stroke', 'black');
-
-		var content = '<span class="name">College: </span><span class="value">' +
-									d.college +
-									'</span><br/>' +
-									'<span class="name">Amount: </span><span class="value">$' +
-									addCommas(d.value) +
-									'</span><br/>' +
-									'<span class="name">Grant: </span><span class="value">' +
-									d.grant +
-									'</span>';
+		var abbreviation = {
+			'Fine Arts':'CoFA',
+			'Humanities':'CoH',
+			'Social and Behavioral Science':'SBS',
+			'Other': 'Other'
+		}
+		console.log(abbreviation[college]);
+		var content = '<span class="name">' + abbreviation[d.college] + '</span><br/><br/>' +
+						'<span class="name">' + d.grant + '</span><br/><br/>' +
+						'<span class="amount">$' + addCommas(d.value) + '</span>';
 		tooltip.showTooltip(content, d3.event);
 	}
 
