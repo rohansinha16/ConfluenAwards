@@ -24,8 +24,7 @@ a, a:visited, a:active {
 
 
 #vis {
-  width: 940px;
-  height: 600px;
+  width: 100%;
   clear: both;
   margin-bottom: 10px;
 }
@@ -34,16 +33,19 @@ a, a:visited, a:active {
   margin-top: 10px;
 }
 
-.college {
+.college, .funding {
   font-size: 21px;
   fill: #1e5288;
   cursor: default;
+  text-align: center;
 }
 
-.funding {
-  font-size: 21px;
-  fill: #1e5288;
+.amount, .collegeAmt, .fundingAmt{
+  font-size: 22px;
+  font-weight:bold;
+  fill: #ab0520;;
   cursor: default;
+  text-align: center;
 }
 
 .tooltip {
