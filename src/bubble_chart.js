@@ -217,7 +217,7 @@ function bubbleChart() {
 			.attr('x', width/2)
 			.attr('y', 40)
 			.attr('text-anchor', 'middle')
-			.text(function(d){ return '$' + addCommas(2596303)});
+			.text(function(d){ return 'Total: $' + addCommas(2596303)});
 		force.on('tick', function (e) {
 			bubbles.each(moveToCenter(e.alpha))
 				.attr('cx', function (d) { return d.x; })
