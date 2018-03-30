@@ -316,8 +316,8 @@ function bubbleChart() {
 		// change outline to indicate hover state.
 		d3.select(this).attr('stroke', 'black');
 		var abbreviation = {
-			'Fine Arts':'CoFA',
-			'Humanities':'CoH',
+			'Fine Arts':'CFA',
+			'Humanities':'COH',
 			'Social and Behavioral Science':'SBS',
 			'Other': 'Other'
 		}
