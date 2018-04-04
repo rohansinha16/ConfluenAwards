@@ -12,26 +12,27 @@ function bubbleChart() {
 	// Constants for sizing
 	var width = window.innerWidth;
 	var useWidth = 4 * width / 5;
-	var height = window.innerHeight - 200;
+	var height = 2*window.innerHeight/3;
+	var useHeight = 7*height/12;
 	console.log("width: " + width + "height: " + height);
 	// tooltip for mouseover functionality
 	var tooltip = floatingTooltip('gates_tooltip', 240);
 
 	// Locations to move bubbles towards, depending
 	// on which view mode is selected.
-	var center = { x: width / 2, y: height / 2 };
+	var center = { x: width / 2, y: useHeight };
 
 	var collegeCenters = {
-		"Social and Behavioral Science": { x: width / 10 + useWidth / 5, y: height / 2},
-		"Humanities": { x: width / 10 + 2 * useWidth / 5, y: height / 2},
-		"Fine Arts": { x: width / 10 + 3 * useWidth / 5, y: height / 2},
-		"Other": { x: width / 10 + 4 * useWidth / 5, y: height / 2}
+		"Social and Behavioral Science": { x: width / 10 + useWidth / 5, y: useHeight},
+		"Humanities": { x: width / 10 + 2 * useWidth / 5, y: useHeight},
+		"Fine Arts": { x: width / 10 + 3 * useWidth / 5, y: useHeight},
+		"Other": { x: width / 10 + 4 * useWidth / 5, y: useHeight}
 	}
 
 	var fundingCenters = {
-		"Provost": { x: width/10 + useWidth/4, y: height / 2 },
-		"State": { x: width/10 + useWidth / 2, y: height / 2 },
-		"RDI": { x: width/10 + 3*useWidth/4, y: height / 2 }
+		"Provost": { x: width/10 + useWidth/4, y: useHeight },
+		"State": { x: width/10 + useWidth / 2, y: useHeight },
+		"RDI": { x: width/10 + 3*useWidth/4, y: useHeight }
 	};	
 
 	// locations of the titles.

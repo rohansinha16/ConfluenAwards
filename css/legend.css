@@ -1,6 +1,48 @@
+.legendContainer {
+	margin: auto;
+	max-width: 1080px;
+}
+
+.legend {
+	margin: auto;
+	margin-bottom: 5px;
+	display: inline-block;
+}
+
 .colorBox {
-	width: 10px;
-	height: 10px;
-	margin: 5px;
+	float: left;
+	width: 15px;
+	height: 15px;
+	margin-left: 15px;
+	margin-right: 5px;
 	border: 1px solid rgba(0, 0, 0, .2);
+	display: inline;
+	clear: none;
+}
+
+.legendLabel {
+	float: left;
+	font-size: 15px;
+	display: inline;
+	clear: none;
+}
+
+.ua {
+  background: #ab0520;
+}
+
+.graduate {
+  background: #ef4056;
+}
+
+.faculty {
+  background: #1e5288;
+}
+
+.director {
+  background: #13b2cb;
+}
+
+.innovation {
+  background: #879295;
 }
