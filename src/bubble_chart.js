@@ -1,5 +1,3 @@
-
-
 /* bubbleChart creation function. Returns a function that will
  * instantiate a new bubble chart given a DOM element to display
  * it in and a dataset to visualize.
@@ -11,13 +9,24 @@
 function bubbleChart() {
 	// Constants for sizing
 	var width = window.innerWidth;
+	if(width < 900) {
+		width = 900;
+	}
 	var useWidth = 4 * width / 5;
-	var height = 2*window.innerHeight/3;
-	var useHeight = 7*height/12;
-	console.log("width: " + width + "height: " + height);
+	var height = window.innerHeight-275;
+	if(height < 475) {
+		height = 475;
+	}
+	var useHeight = 20+height/2;
+	console.log("width: " + width + " height: " + height);
+
 	// tooltip for mouseover functionality
 	var tooltip = floatingTooltip('gates_tooltip', 240);
-
+	// Sizes bubbles based on their area instead of raw radius
+	var radiusScale = d3.scale.pow().exponent(0.5).range([2, 85]);
+	var bigSize = 5;
+	var smallSize = 5;
+	//console.log(radiusScale(+500000) * width/screen.availWidth + " " + radiusScale(+100000) * width/screen.availWidth);
 	// Locations to move bubbles towards, depending
 	// on which view mode is selected.
 	var center = { x: width / 2, y: useHeight };
@@ -34,6 +43,13 @@ function bubbleChart() {
 		"State": { x: width/10 + useWidth / 2, y: useHeight },
 		"RDI": { x: width/10 + 3*useWidth/4, y: useHeight }
 	};	
+
+	var collegeCenters = {
+		"Social and Behavioral Science": { x: width / 10 + useWidth / 5, y: useHeight},
+		"Humanities": { x: width / 10 + 2 * useWidth / 5, y: useHeight},
+		"Fine Arts": { x: width / 10 + 3 * useWidth / 5, y: useHeight},
+		"Other": { x: width / 10 + 4 * useWidth / 5, y: useHeight}
+	}
 
 	// locations of the titles.
 	var collegeTitles = {
@@ -101,10 +117,6 @@ function bubbleChart() {
 	var fillColor = d3.scale.ordinal()
 		.domain(['Director’s Discretionary Award', 'Innovation Farm Grant', 'Faculty Collaboration Grant', 'Graduate Fellowship', 'UA 1885 / UA Excellence Award'])
 		.range(['#13b2cb', '#879295', '#1e5288', '#ef4056','#ab0520']);
-
-	// Sizes bubbles based on their area instead of raw radius
-	var radiusScale = d3.scale.pow().exponent(0.5).range([2, 85]);
-
 	/*
 	 * This data manipulation function takes the raw data from
 	 * the CSV file and converts it into an array of node objects.
@@ -122,6 +134,8 @@ function bubbleChart() {
 		// Checkout http://learnjsdata.com/ for more on
 		// working with data.
 		var myNodes = rawData.map(function (d) {
+			bigSize = radiusScale(+250000) * width/screen.availWidth * 2;
+			smallSize = radiusScale(+100000) * width/screen.availWidth * 2;
 			return {
 				id: d.id,
 				radius: radiusScale(+d.amount) * width/screen.availWidth,
@@ -133,10 +147,8 @@ function bubbleChart() {
 				y: Math.random() * 800
 			};
 		});
-
 		// sort them to prevent occlusion of smaller nodes.
 		myNodes.sort(function (a, b) { return b.value - a.value; });
-
 		return myNodes;
 	}
 
@@ -161,6 +173,15 @@ function bubbleChart() {
 		radiusScale.domain([0, maxAmount]);
 
 		nodes = createNodes(rawData);
+
+		// set legend circle sizes
+		document.getElementById('big').style.width = bigSize + "px";
+		document.getElementById('big').style.height = bigSize + "px";
+		document.getElementById('small').style.width = smallSize + "px";
+		document.getElementById('small').style.height = smallSize + "px";
+		document.getElementById('25Label').style.marginTop = (3 * bigSize / 4 - (smallSize/2 + 12)) + "px";
+		document.getElementById('1Label').style.marginTop = (smallSize / 2 + 12) + "px";
+
 		// Set the force's nodes to our newly created nodes array.
 		force.nodes(nodes);
 
@@ -197,6 +218,8 @@ function bubbleChart() {
 		groupBubbles();
 	};
 
+
+
 	function hideAll(){
 		svg.selectAll('.college').remove();
 		svg.selectAll('.collegeAmt').remove();
@@ -216,7 +239,7 @@ function bubbleChart() {
 		svg.append('text')
 			.attr('class', 'amount')
 			.attr('x', width/2)
-			.attr('y', 40)
+			.attr('y', 35)
 			.attr('text-anchor', 'middle')
 			.text(function(d){ return 'Total: $' + addCommas(2596303)});
 		force.on('tick', function (e) {
@@ -279,6 +302,19 @@ function bubbleChart() {
 		force.start();
 	}
 
+	function transitionToReturn() {
+		hideAll();
+		force.on('tick', function (e) {
+			bubbles.each(moveToReturn(e.alpha))
+				.attr('cx', function (d) { return d.x; })
+				.attr('cy', function (d) { return d.y; });
+		});
+		// setTimeout(function(){
+  //   		svg.selectAll('.bubble').remove();
+		// }, 2000);
+		force.start();
+	}
+
 	/*
 	 * Positioning is adjusted by the force layout's
 	 * alpha parameter which gets smaller and smaller as
@@ -303,19 +339,44 @@ function bubbleChart() {
 		};
 	}
 
+	function moveToReturn(alpha){
+		return function (d) {
+			if(d.grant === 'Faculty Collaboration Grant'){
+				d.x = d.x + (center.x - d.x) * damper * alpha;
+				d.y = d.y + (center.y - d.y) * damper * alpha;
+			}
+			else if(d.college === 'Social and Behavioral Science' || d.college === 'Other'){
+				d.x = d.x + (-300 - d.x) * damper * alpha;
+				d.y = d.y + (center.y - d.y) * damper * alpha;
+			}
+			else if(d.college === 'Humanities' || d.college === 'Fine Arts'){
+				d.x = d.x + (window.innerWidth + 300 - d.x) * damper * alpha;
+				d.y = d.y + (center.y - d.y) * damper * alpha;
+			}
+		};
+	}
+
+	function splitBig(){
+		return function (d) {
+			if(d.grant === 'Faculty Collaboration Grant'){
+				d.remove();
+			}
+		};
+	}
+
 	function showColleges(){
 		var collegesData = d3.keys(collegeTitles);
 		var colleges = svg.selectAll('.college').data(collegesData);
 		colleges.enter().append('text')
 			.attr('class', 'college')
 			.attr('x', function (d) { return collegeTitles[d]; })
-			.attr('y', 40)
+			.attr('y', 35)
 			.attr('text-anchor', 'middle')
 			.text(function(d){ return d.replace('and', '&'); });
 		colleges.enter().append('text')
 			.attr('class', 'collegeAmt')
 			.attr('x', function (d) { return collegeTitles[d]; })
-			.attr('y', 70)
+			.attr('y', 60)
 			.attr('text-anchor', 'middle')
 			.text(function(d){ return '$' + addCommas(collegeTotal[d])});
 	}
@@ -326,13 +387,13 @@ function bubbleChart() {
 		sources.enter().append('text')
 			.attr('class', 'funding')
 			.attr('x', function (d) { return fundingTitlesX[d]; })
-			.attr('y', 40)
+			.attr('y', 35)
 			.attr('text-anchor', 'middle')
 			.text(function(d){ return d; });
 		sources.enter().append('text')
 			.attr('class', 'fundingAmt')
 			.attr('x', function (d) { return fundingTitlesX[d]; })
-			.attr('y', 70)
+			.attr('y', 60)
 			.attr('text-anchor', 'middle')
 			.text(function(d){ return '$' + addCommas(fundingTotal[d]) });
 	}
@@ -377,14 +438,14 @@ function bubbleChart() {
 	chart.toggleDisplay = function (displayName) {
 		if (displayName === 'college') {
 			splitBubbles();
-		}
-		else if(displayName === 'from'){
+		} else if(displayName === 'from'){
 			splitBubblesByFunding();
+		} else if(displayName === 'return'){
+			transitionToReturn();
 		} else {
 			groupBubbles();
 		}
 	};
-
 
 	// return the chart function from closure.
 	return chart;
@@ -448,6 +509,10 @@ function addCommas(nStr) {
 	}
 
 	return x1 + x2;
+}
+
+function resize(){
+	myBubbleChart = bubbleChart();
 }
 
 // Load the data.

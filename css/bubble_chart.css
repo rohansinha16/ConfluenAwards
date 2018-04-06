@@ -2,9 +2,14 @@ a, a:visited, a:active {
   color: #444;
 }
 
+body {
+    background-color: #e2e9eb;
+}
+
 .container {
-  max-width: 900px;
+  max-width: 1000px;
   margin: auto;
+  overflow: auto;
 }
 
 .button {
@@ -83,4 +88,5 @@ a, a:visited, a:active {
 
 .footer {
   text-align: center;
+  clear: both;
 }

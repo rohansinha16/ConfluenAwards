@@ -20,6 +20,12 @@
 	clear: none;
 }
 
+.dot {
+	border: 1px dashed black;
+    border-radius: 50%;
+    text-align: center;
+}
+
 .legendLabel {
 	float: left;
 	font-size: 15px;

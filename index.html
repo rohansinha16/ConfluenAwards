@@ -11,38 +11,58 @@
 	<link rel="stylesheet" href="css/bubble_chart.css">
 	<link rel="stylesheet" href="css/legend.css">
 </head>
-<body bgcolor="#e2e9eb">
+<body onresize="resize()">
 	<div class="container">
 		<h1 style="color:#1e5288">Confluencenter Spending</h1>
 		<div id="toolbar">
 			<a href="#" id="all" class="button active">Total Spending</a>
 			<a href="#" id="from" class="button">Funding From</a>
 			<a href="#" id="college" class="button">Spending by College</a>
+			<!--<a href="#" id="return" class="button">Return On Investment</a>-->
 		</div>
 	</div>
 	<div id="vis"></div>
-	<div class="legend">
-		<div class="colorBox ua"></div>
-		<div class="legendLabel">UA 1885 / UA Excellence Award</div>
-	</div><br>
-	<div class="legend">
-		<div class="colorBox graduate"></div>
-		<div class="legendLabel">Graduate Fellowship</div>
-	</div><br>
-	<div class="legend">
-		<div class="colorBox innovation"></div>
-		<div class="legendLabel">Innovation Farm Grant</div>
-	</div><br>
-	<div class="legend">
-		<div class="colorBox director"></div>
-		<div class="legendLabel">Director’s Discretionary Award</div>
-	</div><br>
-	<div class="legend">
-		<div class="colorBox faculty"></div>
-		<div class="legendLabel">Faculty Collaboration Grant</div>
+	<div class="container">
+		<div style="float: left;">
+			<div class="legend">
+				<div class="colorBox ua"></div>
+				<div class="legendLabel">UA 1885 / UA Excellence Award</div>
+			</div><br>
+			<div class="legend">
+				<div class="colorBox graduate"></div>
+				<div class="legendLabel">Graduate Fellowship</div>
+			</div><br>
+			<div class="legend">
+				<div class="colorBox innovation"></div>
+				<div class="legendLabel">Innovation Farm Grant</div>
+			</div><br>
+			<div class="legend">
+				<div class="colorBox director"></div>
+				<div class="legendLabel">Director’s Discretionary Award</div>
+			</div><br>
+			<div class="legend">
+				<div class="colorBox faculty"></div>
+				<div class="legendLabel">Faculty Collaboration Grant</div>
+			</div>
+		</div>
+		<div style="float: right; text-align:center;">
+			Bubble Sizes<br>
+			<div class="dot" id="big" style="margin: 2px; float: right;">
+				<div class="dot" id="small" style="margin: auto;">
+				</div>
+			</div>
+		</div>
+		<div style="float: right;">
+			<div id="1Label">
+				$100,000 &ndash;
+			</div>
+			<div id="25Label">
+				$250,000 &ndash;
+			</div>
+		</div>
 	</div>
 	<div class="footer" style="color:#1e5288">
-		<p><a href="https://confluencenter.arizona.edu" style="color:#1e5288">Back to Confluencenter</a>
+		<a href="https://confluencenter.arizona.edu" style="color:#1e5288">Back to Confluencenter</a>
 	</div>
 	<script src="lib/d3.js"></script>
 	<script src="src/tooltip.js"></script>
