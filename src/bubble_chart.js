@@ -18,15 +18,14 @@ function bubbleChart() {
 		height = 475;
 	}
 	var useHeight = 20+height/2;
-	console.log("width: " + width + " height: " + height);
+	//console.log("width: " + width + " height: " + height);
 
 	// tooltip for mouseover functionality
 	var tooltip = floatingTooltip('gates_tooltip', 240);
 	// Sizes bubbles based on their area instead of raw radius
 	var radiusScale = d3.scale.pow().exponent(0.5).range([2, 85]);
-	var bigSize = 5;
-	var smallSize = 5;
-	//console.log(radiusScale(+500000) * width/screen.availWidth + " " + radiusScale(+100000) * width/screen.availWidth);
+	var bigSize;
+	var smallSize;
 	// Locations to move bubbles towards, depending
 	// on which view mode is selected.
 	var center = { x: width / 2, y: useHeight };
@@ -509,10 +508,6 @@ function addCommas(nStr) {
 	}
 
 	return x1 + x2;
-}
-
-function resize(){
-	myBubbleChart = bubbleChart();
 }
 
 // Load the data.
