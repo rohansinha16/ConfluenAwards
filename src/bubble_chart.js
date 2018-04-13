@@ -386,10 +386,10 @@ function bubbleChart() {
 					 	.attr('x', width/2)
 					 	.attr('y', 60)
 					 	.attr('text-anchor', 'middle')
-					 	.append("svg:tspan").attr('class', 'amount').style("font-size", "28px").text("$144,326")
-					 	.append("svg:tspan").attr('class', 'step').style("font-size", "28px").text(" in seed funding earned ")
-					 	.append("svg:tspan").attr('class', 'amount').style("font-size", "28px").text("$7.6 MILLION")
-					 	.append("svg:tspan").attr('class', 'step').style("font-size", "28px").text(" in external funds");
+					 	.append("svg:tspan").attr('class', 'amount').text("$144,326")
+					 	.append("svg:tspan").attr('class', 'step').text(" in seed funding earned ")
+					 	.append("svg:tspan").attr('class', 'amount').text("$7.6 MILLION")
+					 	.append("svg:tspan").attr('class', 'step').text(" in external funds");
 					// draw growing 7.6 mil circle
 			 		svg.append("circle").attr('class', 'bigCircle')
 			 			.attr("cx", width/2).attr("cy", height/2)
