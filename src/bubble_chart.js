@@ -339,7 +339,7 @@ function bubbleChart() {
 		 	.attr('x', width/2)
 		 	.attr('y', 60)
 		 	.attr('text-anchor', 'middle')
-		 	.text('Individual Faculty Collaboration Grant Awards');
+		 	.text('Individual Faculty Collaboration Grants');
 	 	// after time
 	 	setTimeout(function(){
 	 		// grow small circles and shrink large circles
