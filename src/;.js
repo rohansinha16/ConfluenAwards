@@ -234,7 +234,6 @@ function bubbleChart() {
 		svg.selectAll('.fundingAmt').remove();
 		svg.selectAll('.amount').remove();
 		svg.selectAll('.bigCircle').remove();
-		svg.selectAll('.step').remove();
 		bubbles.transition()
 		.duration(500)
 		.attr('r', function (d) { 
@@ -335,11 +334,11 @@ function bubbleChart() {
 	 	});
 	 	// show first text
 	 	svg.append('text')
-		 	.attr('class', 'step')
+		 	.attr('class', 'step1')
 		 	.attr('x', width/2)
-		 	.attr('y', 60)
+		 	.attr('y', 35)
 		 	.attr('text-anchor', 'middle')
-		 	.text('Individual Faculty Collaboration Grant Awards');
+		 	.text('Splitting Faculty Collaboration Grants into Individual Grants');
 	 	// after time
 	 	setTimeout(function(){
 	 		// grow small circles and shrink large circles
@@ -355,6 +354,7 @@ function bubbleChart() {
 			});
 			// after time move big circles
 			setTimeout(function(){ 
+				svg.selectAll('step1').remove()
 				force.on('tick', function (e) {
 			 		bubbles.each(moveBigBlue(e.alpha))
 			 		.attr('cx', function (d) { return d.x; })
@@ -363,40 +363,20 @@ function bubbleChart() {
 			}, 750);
 			// after time
 			setTimeout(function(){ 
-				// remove step1 text and add step2 text
-				svg.selectAll('.step').remove();
-				svg.append('text')
-				 	.attr('class', 'step')
-				 	.attr('x', width/2)
-				 	.attr('y', 60)
-				 	.attr('text-anchor', 'middle')
-				 	.text('Data from 6 Individual Grants');
 				// keep only six circles
 				force.on('tick', function (e) {
 			 		bubbles.each(keepSix(e.alpha))
 			 		.attr('cx', function (d) { return d.x; })
 			 		.attr('cy', function (d) { return d.y; });
 		 		});
-		 		// after time
+		 		// draw growing 7.6 mil circle
 		 		setTimeout(function(){ 
-		 			// remove step2 text and add step3 text
-					svg.selectAll('.step').remove();
-					svg.append('text')
-					 	.attr('class', 'step')
-					 	.attr('x', width/2)
-					 	.attr('y', 60)
-					 	.attr('text-anchor', 'middle')
-					 	.append("svg:tspan").attr('class', 'amount').style("font-size", "28px").text("$144,326")
-					 	.append("svg:tspan").attr('class', 'step').style("font-size", "28px").text(" in seed funding earned ")
-					 	.append("svg:tspan").attr('class', 'amount').style("font-size", "28px").text("$7.6 MILLION")
-					 	.append("svg:tspan").attr('class', 'step').style("font-size", "28px").text(" in external funds");
-					// draw growing 7.6 mil circle
 			 		svg.append("circle").attr('class', 'bigCircle')
 			 			.attr("cx", width/2).attr("cy", height/2)
 			 			.attr("r", 0)
-			 			.style("fill", "#bcd6ee")
-			 			.attr('stroke', d3.rgb(fillColor("#bcd6ee")).darker())
-			 			.attr('stroke-width', '2px')
+			 			.attr('stroke', d3.rgb(fillColor("#e2e9eb")).darker())
+			 			.attr('stroke-width', '5px')
+			 			.style("fill", "#e2e9eb")
 			 			.moveToBack()
 			 			.transition()
 							.duration(2000)
@@ -405,7 +385,7 @@ function bubbleChart() {
 							});
 						// enable buttons
 						inTransition = false;
-			 	}, 2000);
+			 	}, 1000);
 		 	}, 1500);
 		}, 1000);
 		force.start();
@@ -548,11 +528,9 @@ function bubbleChart() {
 			'Social and Behavioral Science':'SBS',
 			'Other': 'Other'
 		}
-		var content = '<span class="name">' + d.grant + '</span><br/><br/>' +
+		var content = '<span class="name">' + abbreviation[d.college] + '</span><br/><br/>' +
+		'<span class="name">' + d.grant + '</span><br/><br/>' +
 		'<span class="amount">$' + addCommas(d.value) + '</span>';
-		if(typeof abbreviation[d.college] != 'undefined'){
-			content ='<span class="name">' + abbreviation[d.college] + '</span><br/><br/>' + content
-		}
 		tooltip.showTooltip(content, d3.event);
 	}
 

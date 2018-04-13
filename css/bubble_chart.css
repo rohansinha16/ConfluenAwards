@@ -39,7 +39,16 @@ body {
 }
 
 .college, .funding {
+  font-weight: normal;
   font-size: 21px;
+  fill: #1e5288;
+  cursor: default;
+  text-align: center;
+}
+
+.step {
+  font-weight: normal;
+  font-size: 28px;
   fill: #1e5288;
   cursor: default;
   text-align: center;
@@ -47,7 +56,7 @@ body {
 
 .amount, .collegeAmt, .fundingAmt{
   font-size: 22px;
-  font-weight:bold;
+  font-weight: bold;
   fill: #ab0520;;
   cursor: default;
   text-align: center;

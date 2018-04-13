@@ -26,6 +26,12 @@
     text-align: center;
 }
 
+#bigDot {
+	border: 2px solid black;
+    border-radius: 50%;
+    text-align: center;
+}
+
 .legendLabel {
 	float: left;
 	font-size: 15px;
